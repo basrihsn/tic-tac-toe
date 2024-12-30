@@ -12,20 +12,45 @@ interface TimeLeft {
 export const NewYearCountdown = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isVisible, setIsVisible] = useState(true);
+  const [confettiTimeout, setConfettiTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = () => {
+    // Clear any existing timeout
+    if (confettiTimeout) {
+      clearTimeout(confettiTimeout);
+    }
+    celebrateWin();
+  };
+
+  const handleMouseLeave = () => {
+    // Set a timeout to stop confetti after leaving
+    const timeout = setTimeout(() => {
+      // You could add a stop function to confetti if needed
+    }, 500);
+    setConfettiTimeout(timeout);
+  };
 
   useEffect(() => {
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const christmasDate = new Date(`${currentYear}-12-25T00:00:00`);
-    const newYearDate = new Date(`${currentYear + 1}-01-01T00:00:00`);
-    
-    // Only show between Christmas and New Year
-    if (now < christmasDate || now >= newYearDate) {
-      setIsVisible(false);
-      return;
-    }
+    // Cleanup timeout on unmount
+    return () => {
+      if (confettiTimeout) {
+        clearTimeout(confettiTimeout);
+      }
+    };
+  }, [confettiTimeout]);
 
+  useEffect(() => {
     const calculateTimeLeft = () => {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const christmasDate = new Date(`${currentYear}-12-25T00:00:00`);
+      const newYearDate = new Date(`${currentYear + 1}-01-01T00:00:00`);
+      
+      if (now < christmasDate || now >= newYearDate) {
+        setIsVisible(false);
+        return;
+      }
+
       const difference = newYearDate.getTime() - now.getTime();
 
       if (difference > 0) {
@@ -36,7 +61,6 @@ export const NewYearCountdown = () => {
           seconds: Math.floor((difference / 1000) % 60)
         });
       } else {
-        // New Year!
         celebrateWin();
         setIsVisible(false);
       }
@@ -51,7 +75,11 @@ export const NewYearCountdown = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="new-year-countdown">
+    <div 
+      className="new-year-countdown"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <button 
         className="close-countdown" 
         onClick={() => setIsVisible(false)}
