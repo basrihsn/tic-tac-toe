@@ -14,12 +14,19 @@ export const NewYearCountdown = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const christmasDate = new Date(`${currentYear}-12-25T00:00:00`);
+    const newYearDate = new Date(`${currentYear + 1}-01-01T00:00:00`);
+    
+    // Only show between Christmas and New Year
+    if (now < christmasDate || now >= newYearDate) {
+      setIsVisible(false);
+      return;
+    }
+
     const calculateTimeLeft = () => {
-      const now = new Date();
-      const currentYear = now.getFullYear();
-      const nextYear = currentYear + 1;
-      const newYear = new Date(`${nextYear}-01-01T00:00:00`);
-      const difference = newYear.getTime() - now.getTime();
+      const difference = newYearDate.getTime() - now.getTime();
 
       if (difference > 0) {
         setTimeLeft({
@@ -31,6 +38,7 @@ export const NewYearCountdown = () => {
       } else {
         // New Year!
         celebrateWin();
+        setIsVisible(false);
       }
     };
 
