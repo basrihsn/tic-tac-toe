@@ -15,6 +15,26 @@ export const NewYearCountdown = () => {
   const [showFireworks, setShowFireworks] = useState(false);
   const fireworksRef = useRef(null);
 
+  // Handle periodic fireworks
+  useEffect(() => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const christmasDate = new Date(`${currentYear}-12-25T00:00:00`);
+    const newYearDate = new Date(`${currentYear + 1}-01-01T00:00:00`);
+    
+    // Only run between Christmas and New Year
+    if (now >= christmasDate && now < newYearDate) {
+      const interval = setInterval(() => {
+        setShowFireworks(true);
+        setTimeout(() => {
+          setShowFireworks(false);
+        }, 3000); // Show for 3 seconds
+      }, 10000); // Trigger every 10 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, []);
+
   const handleMouseEnter = () => {
     setShowFireworks(true);
   };
