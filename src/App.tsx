@@ -11,7 +11,7 @@ export const App = () => {
         <Game />
       </main>
       <footer className="app-footer">
-        <p>Built with React & TypeScript</p>
+        <p>Built with React & TypeScript 2024</p>
       </footer>
     </div>
   );

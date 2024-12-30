@@ -28,7 +28,7 @@ export const NewYearCountdown = () => {
         setShowFireworks(true);
         setTimeout(() => {
           setShowFireworks(false);
-        }, 3000); // Show for 3 seconds
+        }, 6000); // Show for 6 seconds
       }, 10000); // Trigger every 10 seconds
 
       return () => clearInterval(interval);
