@@ -1,0 +1,33 @@
+.board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: var(--spacing-md);
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.status {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-sm);
+  font-weight: bold;
+}
+
+.winner {
+  color: var(--success-color);
+  animation: pulse var(--transition-slow) infinite;
+}
+
+.board-row {
+  display: flex;
+  gap: var(--spacing-xs);
+} 

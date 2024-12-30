@@ -1,0 +1,99 @@
+.snow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.snow {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: snowfall linear infinite;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(-100%) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Make each snowflake unique */
+.snow:nth-child(2n) {
+  width: 12px;
+  height: 12px;
+  animation-duration: 7s;
+  animation-delay: 1s;
+  background: rgba(255, 255, 255, 0.9);
+  animation-name: snowfall-left;
+}
+
+.snow:nth-child(3n) {
+  width: 8px;
+  height: 8px;
+  animation-duration: 9s;
+  animation-delay: 2s;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.snow:nth-child(4n) {
+  width: 14px;
+  height: 14px;
+  animation-duration: 11s;
+  animation-delay: 0s;
+  background: rgba(255, 255, 255, 0.95);
+  animation-name: snowfall-right;
+}
+
+@keyframes snowfall-left {
+  0% {
+    transform: translateY(-100%) translateX(100px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes snowfall-right {
+  0% {
+    transform: translateY(-100%) translateX(-100px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(100px) rotate(360deg);
+    opacity: 0;
+  }
+} 

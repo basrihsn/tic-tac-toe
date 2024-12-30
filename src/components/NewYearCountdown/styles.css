@@ -1,0 +1,113 @@
+.new-year-countdown {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(44, 62, 80, 0.15);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  color: var(--white);
+  text-align: center;
+  min-width: 280px;
+  animation: slideIn var(--transition-normal) ease-out;
+}
+
+.close-countdown {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  background: rgba(44, 62, 80, 0.4);
+  color: var(--white);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.close-countdown:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.happy-new-year {
+  font-size: 1.6em;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  -webkit-text-stroke: 0.5px white;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.year-display {
+  font-size: 2.2em;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: var(--spacing-sm);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  animation: pulse var(--transition-slow) infinite;
+}
+
+.countdown-timer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-value {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  margin-bottom: 2px;
+  min-width: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px;
+  border-radius: var(--border-radius-sm);
+}
+
+.countdown-label {
+  font-size: 0.65em;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 1px;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+  .new-year-countdown {
+    top: 10px;
+    right: 10px;
+    min-width: 220px;
+    padding: var(--spacing-sm);
+    font-size: 0.9em;
+  }
+
+  .countdown-value {
+    font-size: 1.6em;
+    min-width: 35px;
+  }
+
+  .countdown-label {
+    font-size: 0.55em;
+  }
+} 

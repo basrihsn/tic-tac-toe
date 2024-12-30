@@ -1,0 +1,254 @@
+.snowman {
+  position: fixed;
+  bottom: 20px;
+  transform: scale(1.5);
+  cursor: pointer;
+  z-index: 2;
+  transition: transform var(--transition-normal);
+}
+
+.snowman.left {
+  left: 50px;
+}
+
+.snowman.right {
+  right: 50px;
+  transform: scale(1.5) scaleX(-1);
+}
+
+.snowman-head {
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  margin: 0 auto;
+  box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+}
+
+.snowman-body {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  margin: -10px auto 0;
+  box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+}
+
+.eyes {
+  position: absolute;
+  top: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.eye {
+  width: 10px;
+  height: 10px;
+  background: #333;
+  border-radius: 50%;
+  animation: blink 4s infinite;
+}
+
+.nose {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #ff6b3d;
+  transform-origin: top;
+  animation: wiggle 3s infinite;
+}
+
+.mouth {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 5px;
+  background: #333;
+  border-radius: 0 0 10px 10px;
+}
+
+.button-top,
+.button-middle,
+.button-bottom {
+  width: 8px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.button-top { top: 15px; }
+.button-middle { top: 35px; }
+.button-bottom { bottom: 15px; }
+
+.arms {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+}
+
+.arm {
+  width: 40px;
+  height: 3px;
+  background: #4a4a4a;
+  position: absolute;
+  transition: transform var(--transition-normal);
+}
+
+.arm.left {
+  left: -30px;
+  transform: rotate(25deg);
+  transform-origin: right;
+}
+
+.arm.right {
+  right: -30px;
+  transform: rotate(-25deg);
+  transform-origin: left;
+}
+
+.arm.throwing {
+  animation: throw-arm 1s ease-out;
+}
+
+.snowball {
+  position: fixed;
+  bottom: 100px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: inset -2px -2px 4px rgba(0,0,0,0.1);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.splash {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  animation: splash 0.5s ease-out forwards;
+}
+
+.splash.left {
+  right: -20px;
+  top: 20px;
+}
+
+.splash.right {
+  left: -20px;
+  top: 20px;
+}
+
+/* Animations */
+@keyframes blink {
+  0%, 96%, 100% {
+    transform: scaleY(1);
+  }
+  98% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: translateX(-50%) rotate(0);
+  }
+  50% {
+    transform: translateX(-50%) rotate(5deg);
+  }
+}
+
+@keyframes throw-arm {
+  0% { transform: rotate(25deg); }
+  50% { transform: rotate(120deg); }
+  100% { transform: rotate(25deg); }
+}
+
+@keyframes splash {
+  0% {
+    transform: scale(0.2);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.snowball.throw-left {
+  animation: throw-left 1s ease-out;
+}
+
+.snowball.throw-right {
+  animation: throw-right 1s ease-out;
+}
+
+@keyframes throw-left {
+  0% {
+    opacity: 1;
+    left: calc(100% - 200px);
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-100px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    left: 200px;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes throw-right {
+  0% {
+    opacity: 1;
+    left: 200px;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-100px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    left: calc(100% - 200px);
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .snowman {
+    transform: scale(1.2);
+  }
+
+  .snowman.right {
+    transform: scale(1.2) scaleX(-1);
+    right: 20px;
+  }
+
+  .snowman.left {
+    left: 20px;
+  }
+} 
