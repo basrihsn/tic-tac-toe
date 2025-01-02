@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
-import { Board } from '../Board';
-import { PlayerForm } from '../PlayerForm';
-import { useGameLogic } from '../../hooks/useGameLogic';
-import type { GameMode, Players } from '../../types/game';
-import './styles.css';
+'use client'
+
+import { useEffect, useCallback } from 'react'
+import { PlayerForm } from '../PlayerForm'
+import { Board } from '../Board'
+import type { GameMode, Players } from '../../types/game'
+import { useGameLogic } from '../../hooks/useGameLogic'
 
 interface GameProps {
-  initialGameMode?: GameMode;
-  initialPlayers?: Players;
+  initialGameMode?: GameMode | null
+  initialPlayers?: Players
 }
 
 export const Game = ({ 
@@ -25,31 +26,41 @@ export const Game = ({
     setGameMode,
     setGamePlayers,
     resetGame
-  } = useGameLogic(initialGameMode);
+  } = useGameLogic(initialGameMode)
 
+  // Move initialization to a separate effect
   useEffect(() => {
     if (initialGameMode) {
-      setGameMode(initialGameMode);
+      setGameMode(initialGameMode)
     }
     if (initialPlayers) {
-      setGamePlayers(initialPlayers);
+      setGamePlayers(initialPlayers)
     }
-  }, [initialGameMode, initialPlayers, setGameMode, setGamePlayers]);
+  }, []) // Empty dependency array since these are initial values
 
-  const winner = calculateWinner(currentSquares);
+  const winner = calculateWinner(currentSquares)
+
+  const handleStartGame = useCallback(({ player1, player2, gameMode }: {
+    player1: string
+    player2: string
+    gameMode: GameMode
+  }) => {
+    setGameMode(gameMode)
+    setGamePlayers({ player1, player2 })
+  }, [setGameMode, setGamePlayers])
+
+  const handleReset = useCallback(() => {
+    resetGame()
+    setGameMode(null)
+  }, [resetGame, setGameMode])
 
   // Show PlayerForm if no game mode is selected
   if (!gameMode) {
     return (
       <div className="game">
-        <PlayerForm 
-          onStartGame={({ player1, player2, gameMode }) => {
-            setGameMode(gameMode);
-            setGamePlayers({ player1, player2 });
-          }} 
-        />
+        <PlayerForm onStartGame={handleStartGame} />
       </div>
-    );
+    )
   }
 
   return (
@@ -68,15 +79,12 @@ export const Game = ({
       <div className="game-info animate-slide-in">
         <button 
           className="reset-button"
-          onClick={() => {
-            resetGame();
-            setGameMode(null); // Reset to show PlayerForm again
-          }}
+          onClick={handleReset}
           aria-label="Reset game"
         >
           Reset Game
         </button>
       </div>
     </div>
-  );
-}; 
+  )
+} 

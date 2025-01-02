@@ -1,18 +1,40 @@
 .app {
   min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, var(--background-gradient-1), var(--background-gradient-2));
-  color: var(--text-color);
   position: relative;
   overflow: hidden;
+}
+
+/* Season-specific backgrounds */
+.app[data-season="winter"] {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  color: #1565c0;
+}
+
+.app[data-season="spring"] {
+  background: linear-gradient(135deg, #f8bbd0, #f1f8e9);
+  color: #558b2f;
+}
+
+.app[data-season="summer"] {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  color: #ef6c00;
+}
+
+.app[data-season="autumn"] {
+  background: linear-gradient(135deg, #ffccbc, #d7ccc8);
+  color: #6d4c41;
 }
 
 .app-header {
   width: 100%;
   padding: var(--spacing-md);
   text-align: center;
+  position: relative;
+  z-index: 10;
 }
 
 .app-header h1 {
@@ -30,7 +52,9 @@ main {
   width: 100%;
   max-width: 800px;
   padding: var(--spacing-md);
-  margin-bottom: 100px; /* Space for snowmen */
+  position: relative;
+  z-index: 10;
+  min-height: 400px;
 }
 
 .app-footer {
@@ -40,7 +64,8 @@ main {
   color: var(--white);
   background: rgba(0, 0, 0, 0.1);
   position: relative;
-  z-index: 2;
+  z-index: 10;
+  margin-top: auto;
 }
 
 .app-footer p {
@@ -69,8 +94,19 @@ main {
   .snowmen-container {
     padding: 0 20px;
   }
+}
 
-  main {
-    margin-bottom: 80px;
-  }
+.game {
+  position: relative;
+  z-index: 1;
+}
+
+.seasonal-effects {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
 } 
